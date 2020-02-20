@@ -1,5 +1,7 @@
 # Chonker-box: backpack mounted wifi destruction
 
+![chonkers](https://i.imgur.com/vc8Qlk8.gif)
+
 Two piece kit, smolbear and lorgbear. All built with pluckNchuck/OTS hardware, all available on Amazan dot calm. Enables GSM WAN access with integrated VPN on the go, wifi pwn platforms, file transfer/exfiltration, and runs off two Anker usb batteries. Easily stored in a backpack, purse, or UPS box. Can run for 9hours off one full charge (and limited C2 activity). 
 
 Also good for:
