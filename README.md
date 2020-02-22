@@ -64,3 +64,5 @@ USB + cat5 + sma connectors + 2.4ghz amp + antenna/parabola/yagi <BR>
 
 <BR><BR>
 ![open](https://i.imgur.com/ZcWmyR4.jpg)
+<BR><BR>
+![closed](https://i.imgur.com/l9ohIO9.jpg)
