@@ -60,3 +60,7 @@ BOM: <BR>
 USB + cat5 + sma connectors + 2.4ghz amp + antenna/parabola/yagi <BR>
 <BR><BR>
 200'ish bux usd, depending on market prices
+
+
+<BR><BR>
+![open](https://i.imgur.com/ZcWmyR4.jpg)
