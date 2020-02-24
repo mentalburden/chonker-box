@@ -141,6 +141,7 @@ document.querySelector('#button').addEventListener('click', geoFindMe);
 </script>
 
 <BR><BR><BR>
+<h3>Last AP scan results:</h3>
 
 <?php
 $fp = file_get_contents("lastjsontemp.json");
@@ -151,9 +152,9 @@ $secsjson = $jsonchonklet->data->sectypes;
 $chansjson = $jsonchonklet->data->channels;
 for($i = 0, $j = count($macsjson); $i < $j ; $i++)
 {
-echo '';
+echo '<strong>';
 echo $namesjson[$i]->name;
-echo '<br>';
+echo '</strong><br>';
 echo $secsjson[$i]->sectype;
 echo '<br>';
 echo $chansjson[$i]->channel;
@@ -173,7 +174,7 @@ echo 'done --';
 
 
 <div id="Paris" class="w3-container city" style="display:none">
-<h3>Wifite Individual Target</h3>
+<h3>Individual Scan</h3>
 <!-- wifite individual run STARTS HERE -->
 <?php
 if($fitebool)
@@ -183,9 +184,9 @@ if($fitebool)
 }
 for($i = 0, $j = count($macsjson); $i < $j ; $i++)
 {
-echo '';
+echo '<strong>';
 echo $namesjson[$i]->name;
-echo '<br>';
+echo '</strong><br>';
 echo $secsjson[$i]->sectype;
 echo '<br>';
 echo $chansjson[$i]->channel;
