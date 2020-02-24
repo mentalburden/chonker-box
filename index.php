@@ -57,7 +57,7 @@ function my_exec($cmd, $input='')
 	text-align: center;
 	margin: auto;
 	width: 90%;
-	font-size: 24px;
+	font-size: 14px;
 	background-color: #bdcebe;
 	border: 3px solid green;
 	padding: 6px;
@@ -69,7 +69,7 @@ function my_exec($cmd, $input='')
 	border: none;
 	background-color: #eca1a6;
 	padding: 14px 28px;
-	font-size: 32px;
+	font-size: 20px;
 	cursor: pointer;
 	text-align: center;
 }
@@ -79,8 +79,8 @@ function my_exec($cmd, $input='')
 
 <body bgcolor='d6cbd3'>
 
-<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px">
-<h5 class="w3-bar-item">Menu</h5>
+<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:100px">
+<h5 class="w3-bar-item"><a href="/index.php">Reload</a></h5>
 <button class="w3-bar-item w3-button tablink" onclick="openCity(event, 'London')">Geotag APs</button>
 <button class="w3-bar-item w3-button tablink" onclick="openCity(event, 'Paris')">Wifite Individual</button>
 <button class="w3-bar-item w3-button tablink" onclick="openCity(event, 'Tokyo')">Wifite Pillage</button>
@@ -88,24 +88,25 @@ function my_exec($cmd, $input='')
 
 
 <!-- SUBMENUS START HERE -->
-<div style="margin-left:130px">
+<div style="margin-left:100px">
 <div class="w3-padding">
 
 <!-- ------------------- -->
 
 <div id="London" class="w3-container city" style="display:none">
-<h2>Geotag local APs</h2>
+<h1>Geotag local APs</h1>
 <!-- GeoTagAP STARTS HERE -->
-<button class="button" id="button">Refresh GPS</button><br/>
+<button class="button" id="button">Refresh GPS/Scan APs</button><br/>
 <p id = "status"></p>
 <p class="geolink">
-<a id="map-link" class="geolink" target="_blank"></a>
+<a id="map-link" target="_blank"></a>
 </p>
 <script>
 function geoFindMe()
 {
 	const status = document.querySelector('#status');
 	const mapLink = document.querySelector('#map-link');
+	var breakyboi = document.createElement("BR");
 	mapLink.href = '';
 	mapLink.textContent = '';
 
@@ -116,7 +117,8 @@ function geoFindMe()
 
 		status.textContent = '';
 		mapLink.href = `/index.php?meowlat=${latitude}&meowlon=${longitude}`;
-		mapLink.textContent = `${latitude}${longitude}`;
+		cleanTest = `lat:${latitude}\r\nlon:${longitude}`;
+		mapLink.textContent = 'Run ap scan for coords:\r\n'+cleanTest;
 	}
 
 	function error()
@@ -171,11 +173,8 @@ echo 'done --';
 
 
 <div id="Paris" class="w3-container city" style="display:none">
-<h2>Wifite Individual</h2>
+<h3>Wifite Individual Target</h3>
 <!-- wifite individual run STARTS HERE -->
-<h1>DONT REFRESH IF THE SCRIPT IS RUNNING!!!</h1>
-<a href="/index.php?meowfite=<?php echo random_string(50); ?>&fitesel=AA:BB:CC:DD:EE:FF">meow</a>
-<h1>NOT WORKING RIGHT NOW, FINISH THIS TOMORROW </h1>
 <?php
 if($fitebool)
 {
@@ -193,7 +192,7 @@ echo $chansjson[$i]->channel;
 echo '<br>';
 echo $macsjson[$i]->mac;
 echo '<br>';
-echo '<a href=index.php?meowfite='.random_string(50).'&fitesel='.$macsjson[$i]->mac.'>Wifite This Target</a>';
+echo '<a href=index.php?meowfite='.random_string(50).'&fitesel='.$macsjson[$i]->mac.'>Wifite-PMKID this Target</a>';
 echo '<br><BR><BR>';
 }
 
@@ -210,10 +209,9 @@ echo 'done --';
 
 
 <div id="Tokyo" class="w3-container city" style="display:none">
-<h2>Wifite Pillage</h2>
-<h1>DONT REFRESH IF THE SCRIPT IS RUNNING!!!</h1>
+<h3>Wifite Pillage</h3>
 <!-- wifite pillage STARTS HERE -->
-<a href="/index.php?meowpil=<?php echo random_string(50); ?>">meow</a>
+<a href="/index.php?meowpil=<?php echo random_string(50); ?>">Run Pillage</a>
 <?php
 if($pillagebool)
 {
