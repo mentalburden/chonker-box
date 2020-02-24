@@ -28,8 +28,11 @@ Not good for:
 - LATER: automate wifite to grab handshakes (skip wps garbage and wordlist crack for time/resource savings)
 - LATER: distributed and make C++ version for esp32 and maybe 8266 (hardcoded creds for pyrebase)
 
-Throw index.php and fi-scan.py into the apache working dir. Touch jsontemp.json, or whatever you change the working json file to, it needs write access for www-data.  Ensure ssl is up and visit the static address with your C2 mobile.
-
+Throw index.php, fi-scan.py, wifite-individual.sh, and wifite-pillage.sh into apache/php working dir.
+Touch jsontemp.json and lastjsontemp.json if youre a skiddie. Rewrite my terrible code if youre not.
+Requires some hacky sudoer stuff, figure it out on your own.
+Also requires some rocket surgery on the bullshit color.py lib that wifite uses (hot trash, rewrite wifite to get rid of it later on). Without changes to color.py wifite will throw stupid term errors when running without an interactive shell.
+Great for quickly and surreptitiously running wifite and geotagged ap scans without an ssh sesh (certain burners dont have juicessh et al in their app stores, having a webui gets around this silly trash). 
 
 
 ### "lorgbear-gourd"
@@ -44,6 +47,8 @@ Throw index.php and fi-scan.py into the apache working dir. Touch jsontemp.json,
 - wetbox/case and foam need to be RF transparent, or pop a hole and use a usb extender
 - can add a 2W 2.4ghz amp to rt8187 for parabolics and yagis, but rare use case; could use SMA connectors on wetbox for this to keep amp external (hot).
 - needs exhaust fan in wet box, also need to print a mount plate for the ots hardware (keep things from rattling, rolled up craft foam sheets work for now).
+
+
 
 
 
