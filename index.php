@@ -5,46 +5,45 @@ $geotagbool = FALSE;
 //$fitesel = "DE:AD:BE:EE:EE:EF";
 if(isset($_GET['meowlat']))
 {
-        $lat = $_GET['meowlat'];
+	$lat = $_GET['meowlat'];
 }
 if(isset($_GET['meowlon']))
 {
-        $lon = $_GET['meowlon'];
-        $geotagbool = TRUE;
+	$lon = $_GET['meowlon'];
+	$geotagbool = TRUE;
 }
 if(isset($_GET['meowpil']))
 {
-        $pillagebool = TRUE;
+	$pillagebool = TRUE;
 }
 if(isset($_GET['meowfite']))
 {
-        $fitesel = $_GET['fitesel'];
-        $fitebool = TRUE;
+	$fitesel = $_GET['fitesel'];
+	$fitebool = TRUE;
 }
 if(isset($lon))
 {
-        $cmd = "python /var/www/html/fi-scan.py ".$lat." ".$lon;
-        $output = shell_exec($cmd);
-        #print_r($output);
+	$cmd = "python /var/www/html/fi-scan.py ".$lat." ".$lon;
+	$fiscanoutput = shell_exec($cmd);
 }
 function random_string($length)
 {
-        $key = '';
-        $keys = array_merge(range(0, 9), range('a', 'z'));
-        for ($i = 0; $i < $length; $i++)
-        {
-                $key .= $keys[array_rand($keys)];
-        }
-        return $key;
+	$key = '';
+	$keys = array_merge(range(0, 9), range('a', 'z'));
+	for ($i = 0; $i < $length; $i++)
+	{
+		$key .= $keys[array_rand($keys)];
+	}
+	return $key;
 }
 function my_exec($cmd, $input='')
 {
-        $proc=proc_open($cmd, array(0=>array('pipe', 'r'), 1=>array('pipe', 'w'), 2=>array('pipe', 'w')), $pipes);
-        fwrite($pipes[0], $input);fclose($pipes[0]);
-        $stdout=stream_get_contents($pipes[1]);fclose($pipes[1]);
-        $stderr=stream_get_contents($pipes[2]);fclose($pipes[2]);
-        $rtn=proc_close($proc);
-        return array('stdout'=>$stdout, 'stderr'=>$stderr, 'return'=>$rtn);
+	$proc=proc_open($cmd, array(0=>array('pipe', 'r'), 1=>array('pipe', 'w'), 2=>array('pipe', 'w')), $pipes);
+	fwrite($pipes[0], $input);fclose($pipes[0]);
+	$stdout=stream_get_contents($pipes[1]);fclose($pipes[1]);
+	$stderr=stream_get_contents($pipes[2]);fclose($pipes[2]);
+	$rtn=proc_close($proc);
+	return array('stdout'=>$stdout, 'stderr'=>$stderr, 'return'=>$rtn);
 }
 ?>
 
@@ -55,24 +54,24 @@ function my_exec($cmd, $input='')
 <link rel="stylesheet" href="w3pro.css">
 <style type="text/css">
 .geolink {
-        text-align: center;
-        margin: auto;
-        width: 90%;
-        font-size: 24px;
-        background-color: #bdcebe;
-        border: 3px solid green;
-        padding: 6px;
+	text-align: center;
+	margin: auto;
+	width: 90%;
+	font-size: 24px;
+	background-color: #bdcebe;
+	border: 3px solid green;
+	padding: 6px;
 }
 
 .button {
-        display: block;
-        width: 100%;
-        border: none;
-        background-color: #eca1a6;
-        padding: 14px 28px;
-        font-size: 32px;
-        cursor: pointer;
-        text-align: center;
+	display: block;
+	width: 100%;
+	border: none;
+	background-color: #eca1a6;
+	padding: 14px 28px;
+	font-size: 32px;
+	cursor: pointer;
+	text-align: center;
 }
 </style>
 <title>smolbear-refresh</title>
@@ -105,39 +104,65 @@ function my_exec($cmd, $input='')
 <script>
 function geoFindMe()
 {
-        const status = document.querySelector('#status');
-        const mapLink = document.querySelector('#map-link');
-        mapLink.href = '';
-        mapLink.textContent = '';
+	const status = document.querySelector('#status');
+	const mapLink = document.querySelector('#map-link');
+	mapLink.href = '';
+	mapLink.textContent = '';
 
-        function success(position)
-        {
-                const latitude  = position.coords.latitude;
-                const longitude = position.coords.longitude;
+	function success(position)
+	{
+		const latitude  = position.coords.latitude;
+		const longitude = position.coords.longitude;
 
-                status.textContent = '';
-                mapLink.href = `/index.php?meowlat=${latitude}&meowlon=${longitude}`;
-                mapLink.textContent = `${latitude}${longitude}`;
-        }
+		status.textContent = '';
+		mapLink.href = `/index.php?meowlat=${latitude}&meowlon=${longitude}`;
+		mapLink.textContent = `${latitude}${longitude}`;
+	}
 
-        function error()
-        {
-                status.textContent = 'Unable to retrieve your location';
-        }
+	function error()
+	{
+		status.textContent = 'Unable to retrieve your location';
+	}
 
-        if (!navigator.geolocation)
-        {
-                status.textContent = 'Geolocation is not supported by your browser';
-        }
-        else
-        {
-                status.textContent = 'Locating   ^`   ';
-                navigator.geolocation.getCurrentPosition(success, error);
-        }
+	if (!navigator.geolocation)
+	{
+		status.textContent = 'Geolocation is not supported by your browser';
+	}
+	else
+	{
+		status.textContent = 'Locating   ^`   ';
+		navigator.geolocation.getCurrentPosition(success, error);
+	}
 
 }
 document.querySelector('#button').addEventListener('click', geoFindMe);
 </script>
+
+<BR><BR><BR>
+
+<?php
+$fp = file_get_contents("lastjsontemp.json");
+$jsonchonklet = json_decode($fp);
+$namesjson = $jsonchonklet->data->essids;
+$macsjson = $jsonchonklet->data->macaddresses;
+$secsjson = $jsonchonklet->data->sectypes;
+$chansjson = $jsonchonklet->data->channels;
+for($i = 0, $j = count($macsjson); $i < $j ; $i++)
+{
+echo '';
+echo $namesjson[$i]->name;
+echo '<br>';
+echo $secsjson[$i]->sectype;
+echo '<br>';
+echo $chansjson[$i]->channel;
+echo '<br>';
+echo $macsjson[$i]->mac;
+echo '<br><BR><BR>';
+}
+
+echo 'done --';
+?>
+
 <!-- AP LIST ENDS HERE -->
 </div>
 
@@ -154,9 +179,26 @@ document.querySelector('#button').addEventListener('click', geoFindMe);
 <?php
 if($fitebool)
 {
-        $thiscmd = '/bin/bash /var/www/html/wifite-individual.sh '.$fitesel;
+	$thiscmd = '/bin/bash /var/www/html/wifite-individual.sh '.$fitesel;
         var_export(my_exec($thiscmd,$fitesel));
 }
+for($i = 0, $j = count($macsjson); $i < $j ; $i++)
+{
+echo '';
+echo $namesjson[$i]->name;
+echo '<br>';
+echo $secsjson[$i]->sectype;
+echo '<br>';
+echo $chansjson[$i]->channel;
+echo '<br>';
+echo $macsjson[$i]->mac;
+echo '<br>';
+echo '<a href=index.php?meowfite='.random_string(50).'&fitesel='.$macsjson[$i]->mac.'>Wifite This Target</a>';
+echo '<br><BR><BR>';
+}
+
+echo 'done --';
+?>
 ?>
 <!-- wifite individual ENDS HERE -->
 </div>
@@ -176,8 +218,8 @@ if($fitebool)
 if($pillagebool)
 {
 
-        //var_export(my_exec('sudo wifite --clients-only --pmkid-timeout 13 -i wlan1mon --pmkid --skip-crack --pow 50 -p 13', ''));
-        var_export(my_exec('/bin/bash /var/www/html/wifite-pillage.sh', ''));
+	//var_export(my_exec('sudo wifite --clients-only --pmkid-timeout 13 -i wlan1mon --pmkid --skip-crack --pow 50 -p 13', ''));
+	var_export(my_exec('/bin/bash /var/www/html/wifite-pillage.sh', ''));
 }
 ?>
 
@@ -191,19 +233,19 @@ if($pillagebool)
 <script>
 function openCity(evt, cityName)
 {
-        var i, x, tablinks;
-        x = document.getElementsByClassName("city");
-        for (i = 0; i < x.length; i++)
-        {
-                x[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tablink");
-        for (i = 0; i < x.length; i++)
-        {
-                tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
-        }
-        document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " w3-red";
+	var i, x, tablinks;
+	x = document.getElementsByClassName("city");
+	for (i = 0; i < x.length; i++) 
+	{
+		x[i].style.display = "none";
+	}
+	tablinks = document.getElementsByClassName("tablink");
+	for (i = 0; i < x.length; i++) 
+	{
+		tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
+	}
+	document.getElementById(cityName).style.display = "block";
+	evt.currentTarget.className += " w3-red";
 }
 </script>
 </body>
@@ -250,4 +292,3 @@ else
 echo "<!-- nope -->";
 }
 ?>
-
